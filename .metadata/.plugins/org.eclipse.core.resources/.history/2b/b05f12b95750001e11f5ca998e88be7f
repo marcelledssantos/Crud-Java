@@ -1,0 +1,85 @@
+package br.com.crud.dao;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.crud.factory.ConnectionFactory;
+import br.com.crud.model.Contato;
+
+public class ContatoDAO {
+
+	public void save(Contato contato) {
+
+		String sql = "InSERT INTO contatos(nome, idade, dataCadastro) " + " VALUES(?,?,?)";
+
+		Connection conn = null;
+		PreparedStatement pstm = null;
+
+		try {
+
+			conn = ConnectionFactory.createConnectionToMySQL();
+
+			pstm = conn.prepareStatement(sql);
+
+			pstm.setString(1, contato.getNome());
+
+			pstm.setInt(2, contato.getIdade());
+
+			pstm.setDate(3, new Date(contato.getDataCadastro().getTime()));
+
+			pstm.execute();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (pstm != null) {
+
+					pstm.close();
+				}
+
+				if (conn != null) {
+
+					conn.close();
+
+				}
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void removeById(int id) {
+		String sql = "DELETE FROM contatos WHERE id = ?";
+
+		Connection conn = null;
+		PreparedStatement pstm = null;
+
+		try {
+			conn = ConnectionFactory.createConnectionToMySQL();
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, id);
+			pstm.execute();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (pstm != null) {
+					pstm.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+}

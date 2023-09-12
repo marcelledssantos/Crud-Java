@@ -1,0 +1,5 @@
+INDEX VERSION 1.134+C:\Users\marce\OneDrive\Área de Trabalho\Java drive\.metadata\.plugins\org.eclipse.jdt.core
+1797649474.index
+875136640.index
+1867390686.index
+1865797976.index
